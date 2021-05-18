@@ -2,12 +2,14 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const Employee = require('./lib/Employee');
 
+const employeeArr = [];
+
 // Creates array of questions about the manager
 const managerQuestions = () => {
     return inquirer.prompt([
         {
             type: 'input',
-            name: 'managerName',
+            name: 'mgrName',
             message: "What is the manager's name?",
             validate: managerInput => {
                 if (managerInput) {
@@ -26,7 +28,7 @@ const managerQuestions = () => {
         },
         {
            type: 'input',
-           name: 'employeeID',
+           name: 'mgrID',
            message: "What is the manager's employee ID number?",
            validate: idInput => {
                 if (idInput) {
@@ -45,7 +47,7 @@ const managerQuestions = () => {
         },
         {
             type: 'input',
-            name: 'email',
+            name: 'mgrEmail',
             message: "What is the manager's email address?",
             validate: emailInput => {
                 if (emailInput) {
@@ -84,11 +86,13 @@ const managerQuestions = () => {
     .then(optionReturn => {
         const option = (optionReturn.mgrSelect).toString();
         if (option === 'Add an engineer') {
-            engineerQuestions();
+            engineerQuestions(optionReturn);
         } else if (option === 'Add an intern') {
             internQuestions();
         } else if (option === 'Finished building my team') {
-            // Function to compile the data to an html file
+            employeeArr.push(optionReturn);
+            const employee = new Employee(optionReturn.mgrName, optionReturn.mgrID, optionReturn.mgrEmail, 'Manager');
+            console.log(employee)
         }
     });
 };
@@ -122,4 +126,12 @@ const engineerQuestions = () => {
 const internQuestions = () => {
 
 };
-employQuestions();
+
+// Takes data and compiles into HTML
+const createHTML = function(data) {
+    
+};
+
+managerQuestions();
+
+
