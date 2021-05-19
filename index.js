@@ -85,17 +85,20 @@ const managerQuestions = () => {
     ])
     .then(optionReturn => {
         const option = (optionReturn.mgrSelect).toString();
+        const employee = new Employee(optionReturn.mgrName, optionReturn.mgrID, optionReturn.mgrEmail, 'Manager');
+        employeeArr.push(employee);
+        console.log(employeeArr);
+        
         if (option === 'Add an engineer') {
-            engineerQuestions(optionReturn);
+            engineerQuestions();
         } else if (option === 'Add an intern') {
             internQuestions();
         } else if (option === 'Finished building my team') {
-            employeeArr.push(optionReturn);
-            const employee = new Employee(optionReturn.mgrName, optionReturn.mgrID, optionReturn.mgrEmail, 'Manager');
-            console.log(employee)
+            // Calls function to create HTML page
         }
     });
 };
+
 
 // Creates array of questions for the engineer
 const engineerQuestions = () => {
@@ -119,12 +122,162 @@ const engineerQuestions = () => {
             }
 
         },
+        {
+            type: 'input',
+            name: 'engineerID',
+            message: "What is the engineer's employee ID number?",
+            validate: idInput => {
+                 if (idInput) {
+                     if (isNaN(idInput)) {
+                         console.log(" Please enter a number for the ID");
+                         return false;
+                     } else {
+                         return true;
+                     }
+                } else {
+                    console.log("Please enter the engineer's ID number.");
+                    return false;
+                }
+            }
+ 
+         },
+         {
+             type: 'input',
+             name: 'engineerEmail',
+             message: "What is the engineer's email address?",
+             validate: emailInput => {
+                 if (emailInput) {
+                     return true;
+                 } else {
+                     console.log("Please enter the engineer's email address.");
+                     return false;
+                 }
+             }
+         },
+         {
+             type: 'input',
+             name: 'github',
+             message: "What is the engineer's GitHub username?",
+             validate: gitInput => {
+                 if (gitInput) {
+                     return true;
+                } else {
+                    console.log("Please enter the engineer's GitHub username.");
+                    return false;
+                }
+            }
+         },
+         {
+             type: 'list',
+             name: 'engineerSelect',
+             message: "Now that we have the engineer's information, what would you like to do?",
+             choices: ['Add an engineer', 'Add an intern', 'Finished building my team'],
+         }
     ])
+    .then(optionReturn => {
+        const option = (optionReturn.engineerSelect).toString();
+        const employee = new Employee(optionReturn.engineerName, optionReturn.engineerID, optionReturn.engineerEmail, 'Engineer');
+        employeeArr.push(employee);
+        console.log(employeeArr);
+        
+        if (option === 'Add an engineer') {
+            engineerQuestions();
+        } else if (option === 'Add an intern') {
+            internQuestions();
+        } else if (option === 'Finished building my team') {
+            // Calls function to create HTML page
+        }
+    });
 };
 
 // Creates array of questions for the intern
 const internQuestions = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'internName',
+            message: "What is the intern's name?",
+            validate: internInput => {
+                if (internInput) {
+                    if (internInput.charAt(0) === internInput.charAt(0).toUpperCase()) {
+                        return true;
+                    } else {
+                        console.log(' Please capitalize the name!');
+                        return false;
+                    }
+                } else {
+                    console.log("You must enter the intern's name.")
+                    return false;
+                }
+            }
 
+        },
+        {
+            type: 'input',
+            name: 'internID',
+            message: "What is the intern's employee ID number?",
+            validate: idInput => {
+                 if (idInput) {
+                     if (isNaN(idInput)) {
+                         console.log(" Please enter a number for the ID");
+                         return false;
+                     } else {
+                         return true;
+                     }
+                } else {
+                    console.log("Please enter the intern's ID number.");
+                    return false;
+                }
+            }
+ 
+         },
+         {
+             type: 'input',
+             name: 'internEmail',
+             message: "What is the intern's email address?",
+             validate: emailInput => {
+                 if (emailInput) {
+                     return true;
+                 } else {
+                     console.log("Please enter the intern's email address.");
+                     return false;
+                 }
+             }
+         },
+         {
+             type: 'input',
+             name: 'school',
+             message: "What is the intern's school name?",
+             validate: schoolInput => {
+                 if (schoolInput) {
+                     return true;
+                } else {
+                    console.log("Please enter the intern's school name.");
+                    return false;
+                }
+            }
+         },
+         {
+             type: 'list',
+             name: 'internSelect',
+             message: "Now that we have the intern's information, what would you like to do?",
+             choices: ['Add an intern', 'Add an intern', 'Finished building my team'],
+         }
+    ])
+    .then(optionReturn => {
+        const option = (optionReturn.internSelect).toString();
+        const employee = new Employee(optionReturn.internName, optionReturn.internID, optionReturn.internEmail, 'intern');
+        employeeArr.push(employee);
+        console.log(employeeArr);
+        
+        if (option === 'Add an engineer') {
+            engineerQuestions();
+        } else if (option === 'Add an intern') {
+            internQuestions();
+        } else if (option === 'Finished building my team') {
+            // Calls function to create HTML page
+        }
+    });
 };
 
 // Takes data and compiles into HTML
