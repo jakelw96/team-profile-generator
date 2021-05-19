@@ -1,6 +1,9 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-const Employee = require('./lib/Employee');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+
 
 const employeeArr = [];
 
@@ -85,7 +88,7 @@ const managerQuestions = () => {
     ])
     .then(optionReturn => {
         const option = (optionReturn.mgrSelect).toString();
-        const employee = new Employee(optionReturn.mgrName, optionReturn.mgrID, optionReturn.mgrEmail, 'Manager');
+        const employee = new Manager(optionReturn.mgrName, optionReturn.mgrID, optionReturn.mgrEmail, optionReturn.office);
         employeeArr.push(employee);
         console.log(employeeArr);
         
@@ -176,7 +179,7 @@ const engineerQuestions = () => {
     ])
     .then(optionReturn => {
         const option = (optionReturn.engineerSelect).toString();
-        const employee = new Employee(optionReturn.engineerName, optionReturn.engineerID, optionReturn.engineerEmail, 'Engineer');
+        const employee = new Engineer(optionReturn.engineerName, optionReturn.engineerEmail, optionReturn.engineerID, optionReturn.github);
         employeeArr.push(employee);
         console.log(employeeArr);
         
@@ -266,7 +269,7 @@ const internQuestions = () => {
     ])
     .then(optionReturn => {
         const option = (optionReturn.internSelect).toString();
-        const employee = new Employee(optionReturn.internName, optionReturn.internID, optionReturn.internEmail, 'intern');
+        const employee = new Intern(optionReturn.internName, optionReturn.internEmail, optionReturn.internID, optionReturn.school);
         employeeArr.push(employee);
         console.log(employeeArr);
         
