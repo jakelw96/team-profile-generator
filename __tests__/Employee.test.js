@@ -2,6 +2,7 @@ const Employee = require('../lib/Employee');
 
 jest.mock('../lib/Employee');
 
+
 test("Creates an employee object", () => {
     const employee = new Employee('Bob');
 
