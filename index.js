@@ -3,6 +3,8 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const pageTemplate = require('./src/page-template');
+
 
 
 const employeeArr = [];
@@ -88,16 +90,17 @@ const managerQuestions = () => {
     ])
     .then(optionReturn => {
         const option = (optionReturn.mgrSelect).toString();
+        const role = new Manager().getRole()
+        console.log(role)
         const employee = new Manager(optionReturn.mgrName, optionReturn.mgrID, optionReturn.mgrEmail, optionReturn.office);
         employeeArr.push(employee);
-        console.log(employeeArr);
         
         if (option === 'Add an engineer') {
             engineerQuestions();
         } else if (option === 'Add an intern') {
             internQuestions();
         } else if (option === 'Finished building my team') {
-            // Calls function to create HTML page
+            compileData()
         }
     });
 };
@@ -181,14 +184,13 @@ const engineerQuestions = () => {
         const option = (optionReturn.engineerSelect).toString();
         const employee = new Engineer(optionReturn.engineerName, optionReturn.engineerEmail, optionReturn.engineerID, optionReturn.github);
         employeeArr.push(employee);
-        console.log(employeeArr);
         
         if (option === 'Add an engineer') {
             engineerQuestions();
         } else if (option === 'Add an intern') {
             internQuestions();
         } else if (option === 'Finished building my team') {
-            // Calls function to create HTML page
+            compileData()
         }
     });
 };
@@ -271,23 +273,23 @@ const internQuestions = () => {
         const option = (optionReturn.internSelect).toString();
         const employee = new Intern(optionReturn.internName, optionReturn.internEmail, optionReturn.internID, optionReturn.school);
         employeeArr.push(employee);
-        console.log(employeeArr);
         
         if (option === 'Add an engineer') {
             engineerQuestions();
         } else if (option === 'Add an intern') {
             internQuestions();
         } else if (option === 'Finished building my team') {
-            // Calls function to create HTML page
+            compileData()
         }
     });
 };
 
+
+
 // Takes data and compiles into HTML
-const createHTML = function(data) {
+const compileData = (data) => {
+    data = employeeArr
+    return pageTemplate(data)
+}
     
-};
-
-managerQuestions();
-
-
+managerQuestions()
