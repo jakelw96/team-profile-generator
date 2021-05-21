@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  text-align: center;
+  background-color: red;
+  padding: 1% 1%;
+}
+
+header h1 {
+  color: whitesmoke;
+}
+
+#parent {
+  text-align: center;
+  padding-top: 5%;
+}
+
+.card-title {
+  background-color: blue;
+  text-align: left;
+}
+
+.role {
+  background-color: blue;
+  text-align: left;
+}
+
+h4 {
+  color: whitesmoke;
+}
+
+.card-text {
+  text-align: left;
+}

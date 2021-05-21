@@ -1,9 +1,9 @@
-const fs = require('fs');
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const pageTemplate = require('./src/page-template');
+const { writeFile, copyFile } = require('./utils/generate-site');
 
 
 
@@ -91,8 +91,7 @@ const managerQuestions = () => {
     .then(optionReturn => {
         const option = (optionReturn.mgrSelect).toString();
         const role = new Manager().getRole()
-        console.log(role)
-        const employee = new Manager(optionReturn.mgrName, optionReturn.mgrID, optionReturn.mgrEmail, optionReturn.office);
+        const employee = new Manager(optionReturn.mgrName, optionReturn.mgrEmail, optionReturn.mgrID, optionReturn.office);
         employeeArr.push(employee);
         
         if (option === 'Add an engineer') {
@@ -101,6 +100,18 @@ const managerQuestions = () => {
             internQuestions();
         } else if (option === 'Finished building my team') {
             compileData()
+                 .then(pageData => {
+                     console.log(pageData)
+                //     return writeFile(pageData)
+                })
+                // .then(fileResponse => {
+                //     console.log(fileResponse);
+                //     return copyFile();
+                // })
+                // .catch(err => {
+                //     console.log(err)
+                // })
+            
         }
     });
 };
@@ -191,6 +202,17 @@ const engineerQuestions = () => {
             internQuestions();
         } else if (option === 'Finished building my team') {
             compileData()
+                 .then(pageData => {
+                     console.log(pageData)
+                //  return writeFile(pageData)
+                 })
+                // .then(fileResponse => {
+                //     console.log(fileResponse);
+                //     return copyFile();
+                // })
+                // .catch(err => {
+                //     console.log(err)
+                // })
         }
     });
 };
@@ -280,6 +302,17 @@ const internQuestions = () => {
             internQuestions();
         } else if (option === 'Finished building my team') {
             compileData()
+                .then(pageData => {
+                    writeFile(pageData)
+                    console.log(writeFile(pageData))
+                })
+                .then(fileResponse => {
+                    console.log(fileResponse);
+                    return copyFile();
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
     });
 };
@@ -287,9 +320,14 @@ const internQuestions = () => {
 
 
 // Takes data and compiles into HTML
-const compileData = (data) => {
-    data = employeeArr
-    return pageTemplate(data)
-}
+const compileData = () => {
+    arrData = employeeArr
+    //  return pageTemplate(arrData)
+    return new Promise((resolve, reject) => {
+        resolve(pageTemplate(arrData))
+        reject("Error")
+    })
+};
     
-managerQuestions()
+managerQuestions();
+
