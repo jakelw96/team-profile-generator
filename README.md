@@ -34,7 +34,7 @@ No contributions are needed at this time.
 
 ## Tests
 
-The application can be tested through the use of Unit Testing. You can envoke each Class by typing "npm test <classname>" or test it as a whole with "npm test".
+The application can be tested through the use of Unit Testing. You can envoke each Class by typing "npm test 'classname' " or test it as a whole with "npm test".
 
 ## Questions
 
