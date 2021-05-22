@@ -101,7 +101,6 @@ const managerQuestions = () => {
         } else if (option === 'Finished building my team') {
             compileData()
                  .then(pageData => {
-                     console.log(pageData)
                      return writeFile(pageData)
                 })
                  .then(fileResponse => {
@@ -203,7 +202,6 @@ const engineerQuestions = () => {
         } else if (option === 'Finished building my team') {
             compileData()
                 .then(pageData => {
-                    console.log(pageData)
                     return writeFile(pageData)
                  })
                 .then(fileResponse => {
@@ -303,7 +301,6 @@ const internQuestions = () => {
         } else if (option === 'Finished building my team') {
             compileData()
                 .then(pageData => {
-                    console.log(pageData)
                     return writeFile(pageData)
                 })
                 .then(fileResponse => {
