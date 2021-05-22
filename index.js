@@ -286,7 +286,7 @@ const internQuestions = () => {
              type: 'list',
              name: 'internSelect',
              message: "Now that we have the intern's information, what would you like to do?",
-             choices: ['Add an intern', 'Add an intern', 'Finished building my team'],
+             choices: ['Add an engineer', 'Add an intern', 'Finished building my team'],
          }
     ])
     .then(optionReturn => {
