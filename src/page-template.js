@@ -2,6 +2,10 @@ const Manager = require('../lib/Manager');
 const Engineer = require('../lib/Engineer');
 const Intern = require('../lib/Intern');
 
+const mgrRole = new Manager().getRole();
+const engineerRole = new Engineer().getRole();
+const internRole = new Intern().getRole();
+
 
 // Create a card for a manager
 const generateMgr = mgrData => {
@@ -10,21 +14,21 @@ const generateMgr = mgrData => {
     }
     
     return `
-    <div class="col-4">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h4 class="card-title">
-                    ${mgrData.name}<br>
-                    Roll: Manager
-                </h4>
-                <p class="card-text">
-                    ID: ${mgrData.id}<br>
-                    Email: <a href="mailto:${mgrData.email}">${mgrData.email}</a><br>
-                    Office number: ${mgrData.office}
-                </p>
-            </div>
-        </div>
-    </div>
+                    <div class="col-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    ${mgrData.name}<br>
+                                    Roll: ${mgrRole}
+                                </h4>
+                                <p class="card-text">
+                                    ID: ${mgrData.id}<br>
+                                    Email: <a href="mailto:${mgrData.email}">${mgrData.email}</a><br>
+                                    Office number: ${mgrData.office}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
     `;
 };
 
@@ -35,21 +39,21 @@ const generateEngineer = engineerData => {
     }
     
     return `
-    <div class="col-4">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h4 class="card-title">
-                    ${engineerData.name}<br>
-                     Roll: Engineer
-                </h4>
-                <p class="card-text">
-                    ID: ${engineerData.id}<br>
-                    Email: <a href="mailto:${engineerData.email}">${engineerData.email}</a><br>
-                    GitHub Username: <a href="https://github.com/${engineerData.github}">${engineerData.github}</a>
-                </p>
-            </div>
-        </div>
-    </div>
+                    <div class="col-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    ${engineerData.name}<br>
+                                    Roll: ${engineerRole}
+                                </h4>
+                                <p class="card-text">
+                                    ID: ${engineerData.id}<br>
+                                    Email: <a href="mailto:${engineerData.email}">${engineerData.email}</a><br>
+                                    GitHub Username: <a href="https://github.com/${engineerData.github}">${engineerData.github}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
     `;
 };
 
@@ -60,46 +64,44 @@ const generateIntern = internData => {
     }
 
     return `
-    <div class="col-4">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h4 class="card-title">
-                    ${internData.name}<br>
-                    Roll: Intern
-                </h4>
-                <p class="card-text">
-                    ID: ${internData.id}<br>
-                    Email: <a href="mailto:${internData.email}">${internData.email}</a><br>
-                    School: ${internData.school}
-                </p>
-            </div>
-        </div>
-    </div>    
+                    <div class="col-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    ${internData.name}<br>
+                                    Roll: ${internRole}
+                                </h4>
+                                <p class="card-text">
+                                    ID: ${internData.id}<br>
+                                    Email: <a href="mailto:${internData.email}">${internData.email}</a><br>
+                                    School: ${internData.school}
+                                </p>
+                            </div>
+                        </div>
+                    </div>    
     `;
 };
 
-// Loop through array of employees
-function dataReturn (data) {
-    for(i = 0; i < data.length; i++ ) {
-        if ("office" in data[i]) {
-            dataMgr = generateMgr(data[i])
-            pageTemplate(dataMgr)
-            console.log(pageTemplate(dataMgr))
-            return pageTemplate(dataMgr)
-            
-        } else if ("github" in data[i]) {
-            dataEngineer = generateEngineer(data[i])
-            pageTemplate(dataEngineer)
-            console.log(pageTemplate(dataEngineer))
-            return pageTemplate(dataEngineer)
-        } else if ("school" in data[i]) {
-            generateIntern(data[i])
+function pageTemplate(employeeData) {
+    console.log(employeeData)
+    let mgr = '';
+    let engineerArr = [];
+    let internArr = [];
+    
+    // Loop through array of employees
+    for(i = 0; i < employeeData.length; i++ ) {
+        if ("office" in employeeData[i]) {
+            dataMgr = generateMgr(employeeData[i])
+            mgr = dataMgr
+        } else if ("github" in employeeData[i]) {
+            dataEngineer = generateEngineer(employeeData[i])
+            engineerArr.push(dataEngineer)
+        } else if ("school" in employeeData[i]) {
+            dataIntern = generateIntern(employeeData[i])
+            internArr.push(dataIntern)
         }
     }
-};
 
-
-function pageTemplate(employeeData) {
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -120,7 +122,9 @@ function pageTemplate(employeeData) {
         <main>
             <div class="container" id="parent">
                 <div class="row">
-                ${dataReturn(employeeData)}
+                ${mgr}
+                ${engineerArr.join('')}
+                ${internArr.join('')}
                 </div>
             </div>
         </main>

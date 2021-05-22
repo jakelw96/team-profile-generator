@@ -102,15 +102,15 @@ const managerQuestions = () => {
             compileData()
                  .then(pageData => {
                      console.log(pageData)
-                //     return writeFile(pageData)
+                     return writeFile(pageData)
                 })
-                // .then(fileResponse => {
-                //     console.log(fileResponse);
-                //     return copyFile();
-                // })
-                // .catch(err => {
-                //     console.log(err)
-                // })
+                 .then(fileResponse => {
+                     console.log(fileResponse);
+                     return copyFile();
+                 })
+                 .catch(err => {
+                     console.log(err)
+                 })
             
         }
     });
@@ -202,17 +202,17 @@ const engineerQuestions = () => {
             internQuestions();
         } else if (option === 'Finished building my team') {
             compileData()
-                 .then(pageData => {
-                     console.log(pageData)
-                //  return writeFile(pageData)
+                .then(pageData => {
+                    console.log(pageData)
+                    return writeFile(pageData)
                  })
-                // .then(fileResponse => {
-                //     console.log(fileResponse);
-                //     return copyFile();
-                // })
-                // .catch(err => {
-                //     console.log(err)
-                // })
+                .then(fileResponse => {
+                    console.log(fileResponse);
+                    return copyFile();
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
     });
 };
@@ -303,8 +303,8 @@ const internQuestions = () => {
         } else if (option === 'Finished building my team') {
             compileData()
                 .then(pageData => {
-                    writeFile(pageData)
-                    console.log(writeFile(pageData))
+                    console.log(pageData)
+                    return writeFile(pageData)
                 })
                 .then(fileResponse => {
                     console.log(fileResponse);
@@ -316,7 +316,6 @@ const internQuestions = () => {
         }
     });
 };
-
 
 
 // Takes data and compiles into HTML
