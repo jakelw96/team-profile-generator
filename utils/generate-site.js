@@ -8,15 +8,12 @@ const writeFile = data => {
                 return;
             }
 
-            resolve({
-                ok: true,
-                message: 'HTML generated!'
-            });
+            resolve("HTML generated!");
         });
     });
 };
 
-const copyFile = data => {
+const copyFile = () => {
     return new Promise((resolve, reject) => {
         fs.copyFile('./src/style.css', './dist/style.css', err => {
             if (err) {
