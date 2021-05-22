@@ -83,7 +83,6 @@ const generateIntern = internData => {
 };
 
 function pageTemplate(employeeData) {
-    console.log(employeeData)
     let mgr = '';
     let engineerArr = [];
     let internArr = [];
